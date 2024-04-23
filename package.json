@@ -1,0 +1,35 @@
+{
+  "name": "store_backend",
+  "version": "1.0.0",
+  "description": "Backend application for a mock store. Used for practice.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tilko121/express_store_backend.git"
+  },
+  "author": "Tilen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tilko121/express_store_backend/issues"
+  },
+  "homepage": "https://github.com/tilko121/express_store_backend#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "connect-redis": "^7.1.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.2.0",
+    "express-session": "^1.18.0",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.9.6",
+    "redis": "^4.6.13",
+    "sequelize": "^6.37.3",
+    "sequelize-cli": "^6.6.2",
+    "uuid": "^9.0.1"
+  }
+}
