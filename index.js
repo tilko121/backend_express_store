@@ -57,9 +57,26 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 // Sync Sequelize models with the database
-const Transaction = require('./models/Transaction');
+
+const TransactionType = require('./models/TransactionType');
+const TransactionStatus = require('./models/TransactionStatus');
+const Currency = require('./models/Currency');
+const PaymentMethod = require('./models/PaymentMethod');
+const Merchant = require('./models/Merchant');
+
 const Product = require('./models/Product');
 const User = require('./models/User');
+const Transaction = require('./models/Transaction');
+
+User.hasMany(Transaction, { foreignKey: 'userId' });
+Transaction.belongsTo(User, { foreignKey: 'userId' });
+
+Transaction.belongsTo(TransactionType, { foreignKey: 'typeId' });
+Transaction.belongsTo(TransactionStatus, { foreignKey: 'statusId' });
+Transaction.belongsTo(Currency, { foreignKey: 'currencyId' });
+Transaction.belongsTo(PaymentMethod, { foreignKey: 'paymentMethodId' });
+Transaction.belongsTo(Merchant, { foreignKey: 'merchantId' });
+
 const { tokenGenerationLimiter } = require('./tokenGenerationLimiterMiddleware');
 
 app.use("/register", authenticateGenerator);
@@ -131,6 +148,8 @@ app.post('/login', tokenGenerationLimiter, async (req, res) => {
         if (!passwordMatch) {
             return res.status(401).json({ error: 'Invalid username or password' });
         }
+
+        await user.update({ last_login: new Date() });
 
         // Generate JWT token
         const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
